@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin · Projects | Infinique Dev</title>
+<link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy.css" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root {
+    --bg: #0a0b10;
+    --panel: #13151c;
+    --panel-alt: #191c25;
+    --line: rgba(255,255,255,0.1);
+    --line-strong: rgba(255,255,255,0.22);
+    --muted: rgba(255,255,255,0.58);
+    --text: #eef0f5;
+    --accent: #60a5fa;
+    --accent-strong: #3b82f6;
+    --danger: #f87171;
+    --ok: #34d399;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); }
+  body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  a { color: inherit; }
+
+  .admin-shell { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
+  .admin-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 24px; margin-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+  .admin-header h1 {
+    margin: 0;
+    font-family: 'Paperlogy', 'Pretendard', sans-serif;
+    font-size: 24px; font-weight: 700;
+  }
+  .admin-header .meta { font-size: 12px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .tabs { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
+  .tab {
+    appearance: none; background: none; border: none; cursor: pointer;
+    padding: 12px 20px; font-family: inherit; color: var(--muted);
+    font-size: 14px; font-weight: 600; letter-spacing: 0.04em;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.is-active { color: var(--text); border-color: var(--accent); }
+
+  .panel { display: none; }
+  .panel.is-active { display: block; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .section {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .section h2 {
+    margin: 0 0 16px;
+    font-family: 'Paperlogy', 'Pretendard', sans-serif;
+    font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .field label { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; }
+  .field label .req { color: var(--danger); margin-left: 4px; }
+  .field .hint { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+  input[type="text"], input[type="number"], input[type="url"], textarea, select {
+    width: 100%;
+    background: var(--panel-alt);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--text); font: inherit;
+    padding: 10px 12px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none; border-color: var(--accent); background: rgba(96,165,250,0.06);
+  }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.55; }
+
+  .radio-row, .check-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .radio-row label, .check-row label {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--panel-alt);
+    border: 1px solid var(--line);
+    border-radius: 8px; cursor: pointer;
+    font-size: 13px; font-weight: 500; color: var(--text);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .radio-row label:hover, .check-row label:hover { border-color: var(--line-strong); }
+  .radio-row label:has(input:checked), .check-row label:has(input:checked) {
+    border-color: var(--accent); background: rgba(96,165,250,0.1);
+  }
+  input[type="radio"], input[type="checkbox"] { accent-color: var(--accent); margin: 0; }
+
+  .inline-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+  .tag-input-row { display: flex; gap: 8px; margin-top: 12px; }
+  .tag-input-row input { flex: 1; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: rgba(255,255,255,0.04);
+    color: var(--text); cursor: pointer;
+    font: inherit; font-weight: 600; font-size: 13px; letter-spacing: 0.04em;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .btn:hover { background: rgba(255,255,255,0.1); }
+  .btn.primary { background: #fff; color: #000; border-color: #fff; }
+  .btn.primary:hover { background: #e6e6e6; }
+  .btn.danger { border-color: rgba(248,113,113,0.4); color: #fca5a5; }
+  .btn.danger:hover { background: rgba(248,113,113,0.1); }
+  .btn.small { padding: 6px 12px; font-size: 12px; }
+  .btn.ghost { background: transparent; border-color: var(--line); }
+
+  .button-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+  .image-slots { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 640px) { .image-slots { grid-template-columns: 1fr; } }
+  .image-slot { position: relative; background: var(--panel-alt); border: 1px solid var(--line); border-radius: 8px; padding: 12px 12px 12px 36px; transition: border-color 0.15s, opacity 0.15s, transform 0.15s; }
+  .image-slot.dragging { opacity: 0.4; }
+  .image-slot.drag-over { border-color: var(--accent); }
+  .image-slot-handle {
+    position: absolute; top: 10px; left: 10px;
+    width: 18px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 4px;
+    color: rgba(255,255,255,0.55);
+    cursor: grab;
+    user-select: none;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    z-index: 2;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .image-slot-handle:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); color: #fff; }
+  .image-slot-handle:active { cursor: grabbing; }
+  .image-slot-handle svg { width: 10px; height: 14px; pointer-events: none; }
+  .image-slot input { font-size: 12px; }
+  .image-slot .preview {
+    aspect-ratio: 4 / 3;
+    background: rgba(255,255,255,0.04);
+    border: 1px dashed var(--line);
+    border-radius: 6px; overflow: hidden; margin-bottom: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.38);
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    text-align: center; padding: 12px; line-height: 1.6;
+  }
+  .image-slot .preview:hover { border-color: var(--accent); background: rgba(96,165,250,0.05); }
+  .image-slot .preview.drop-hover { border-color: var(--accent); background: rgba(96,165,250,0.12); }
+  .image-slot .preview img { width: 100%; height: 100%; object-fit: cover; }
+  .image-slot .preview-hint { display: block; font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 4px; letter-spacing: 0.1em; text-transform: none; }
+  .image-slot-remove {
+    position: absolute; top: 8px; right: 8px;
+    width: 24px; height: 24px; padding: 0;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
+    font-size: 16px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, color 0.15s;
+  }
+  .image-slot-remove:hover { background: rgba(248,113,113,0.25); color: #fff; }
+
+  .proj-list { display: flex; flex-direction: column; gap: 8px; }
+  .proj-row {
+    display: grid;
+    grid-template-columns: 28px 60px 1fr 140px 90px auto;
+    gap: 16px; align-items: center;
+    padding: 12px 16px;
+    background: var(--panel-alt);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    transition: border-color 0.15s, opacity 0.15s, transform 0.15s;
+  }
+  .proj-row:hover { border-color: var(--line-strong); }
+  .proj-row.dragging { opacity: 0.4; }
+  .proj-row.drag-over { border-color: var(--accent); }
+  .proj-handle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 28px;
+    border-radius: 4px;
+    color: rgba(255,255,255,0.45);
+    cursor: grab;
+    user-select: none;
+    background: transparent;
+    border: 1px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .proj-handle:hover { background: rgba(255,255,255,0.06); color: #fff; border-color: rgba(255,255,255,0.14); }
+  .proj-handle:active { cursor: grabbing; }
+  .proj-handle svg { width: 10px; height: 14px; pointer-events: none; }
+  .proj-cat-divider {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); padding: 14px 4px 4px; margin-top: 8px;
+    border-top: 1px solid var(--line);
+  }
+  .proj-cat-divider:first-child { border-top: 0; padding-top: 4px; margin-top: 0; }
+  .proj-num { color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; }
+  .proj-title { font-weight: 600; }
+  .proj-title small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; margin-top: 2px; }
+  .proj-category { font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .proj-flags { display: flex; gap: 4px; }
+  .proj-flag {
+    display: inline-block; padding: 2px 8px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--line);
+    font-size: 10px; letter-spacing: 0.1em; color: var(--muted);
+  }
+  .proj-flag.on { color: var(--ok); border-color: rgba(52,211,153,0.35); background: rgba(52,211,153,0.08); }
+  .proj-actions { display: flex; gap: 6px; }
+  @media (max-width: 768px) { .proj-row { grid-template-columns: 1fr; } }
+
+  #toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #fff; color: #000;
+    padding: 10px 20px; border-radius: 999px;
+    font-size: 13px; font-weight: 600;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s;
+    z-index: 1000;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 14px; }
+
+  code { background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; font-size: 90%; }
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <header class="admin-header">
+    <div>
+      <h1>Admin · Projects</h1>
+      <p class="meta" style="margin:4px 0 0;">Infinique Dev · LocalStorage editor</p>
+    </div>
+    <div class="inline-row">
+      <button class="btn ghost small" id="seedBtn">Seed defaults</button>
+      <button class="btn ghost small" id="importBtn">Import JSON</button>
+      <button class="btn ghost small" id="exportBtn">Export JSON</button>
+      <input type="file" id="fileInput" accept="application/json" hidden>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab is-active" data-panel="list">Projects</button>
+    <button class="tab" data-panel="edit">New / Edit</button>
+    <button class="tab" data-panel="tags">Tags</button>
+  </div>
+
+  <section class="panel is-active" id="panel-list">
+    <div class="section">
+      <h2>Registered Projects</h2>
+      <div id="projList" class="proj-list"></div>
+      <div class="button-row">
+        <button class="btn primary" id="newProjectBtn">+ New project</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-edit">
+    <form id="projForm" autocomplete="off">
+      <input type="hidden" id="f-id">
+
+      <div class="section">
+        <h2>Basics</h2>
+        <div class="grid-2">
+          <div class="field">
+            <label>Slug (URL path)<span class="req">*</span></label>
+            <input type="text" id="f-slug" required pattern="[a-z0-9\-]+" placeholder="tendon-driven-dexterous-hand">
+            <span class="hint">Lowercase letters, numbers, hyphens only.</span>
+          </div>
+          <div class="field">
+            <label>Project Number</label>
+            <input type="text" id="f-num" placeholder="01" maxlength="4">
+          </div>
+        </div>
+        <div class="field">
+          <label>Category<span class="req">*</span></label>
+          <div class="radio-row">
+            <label><input type="radio" name="category" value="hardware" checked><span>HW &amp; Robotics</span></label>
+            <label><input type="radio" name="category" value="software"><span>AI &amp; Software</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Visibility &amp; Order</h2>
+        <div class="grid-2">
+          <div class="field">
+            <label>Order in category page</label>
+            <input type="number" id="f-order-cat" min="1" value="1">
+            <span class="hint">1 = first tile on hardware/software page.</span>
+          </div>
+          <div class="field">
+            <label>Order on main page</label>
+            <input type="number" id="f-order-main" min="1" placeholder="1">
+            <span class="hint">Used only when the flag below is on.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Main page visibility</label>
+          <div class="check-row">
+            <label><input type="checkbox" id="f-show-main"><span>Show on main page</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Content · English</h2>
+        <div class="field">
+          <label>EN Title<span class="req">*</span></label>
+          <input type="text" id="f-en-title" required placeholder="Tendon-driven Dexterous Hand">
+        </div>
+        <div class="field">
+          <label>EN Subtitle</label>
+          <input type="text" id="f-en-subtitle" placeholder="AI-driven rehabilitation wearable robot system">
+        </div>
+        <div class="field">
+          <label>EN Brief (one-line key tech)</label>
+          <textarea id="f-en-brief" rows="2"></textarea>
+        </div>
+        <div class="field">
+          <label>EN Long description</label>
+          <textarea id="f-en-long" rows="5"></textarea>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Content · 한국어</h2>
+        <div class="field">
+          <label>KO 부제</label>
+          <input type="text" id="f-ko-subtitle" placeholder="AI 기반 재활 웨어러블 로봇 시스템">
+        </div>
+        <div class="field">
+          <label>KO 핵심 기술 한 줄</label>
+          <textarea id="f-ko-brief" rows="2"></textarea>
+        </div>
+        <div class="field">
+          <label>KO 상세 설명</label>
+          <textarea id="f-ko-long" rows="5"></textarea>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Tags</h2>
+        <div class="check-row" id="tag-list"></div>
+        <div class="tag-input-row">
+          <input type="text" id="newTagInput" placeholder="Add a new tag (Enter or +)">
+          <button type="button" class="btn small" id="addTagBtn">+ Add</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Images</h2>
+        <div class="image-slots" id="image-slots"></div>
+        <div class="button-row" style="margin-top:12px;">
+          <button type="button" class="btn small" id="addImageBtn">+ Add image slot</button>
+        </div>
+        <p class="hint" style="margin-top:10px;">Convention: place files in <code>tech/assets/projects/</code> named <code>{slug}-01.jpg</code>, <code>{slug}-02.jpg</code>, … Detail page references these automatically.</p>
+      </div>
+
+      <div class="button-row">
+        <button type="submit" class="btn primary">Save project</button>
+        <button type="button" class="btn ghost" id="cancelEditBtn">Cancel</button>
+        <button type="button" class="btn danger" id="deleteProjectBtn" style="display:none;">Delete</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel" id="panel-tags">
+    <div class="section">
+      <h2>Tag Library</h2>
+      <p class="hint">All tags currently known (defaults + custom + used by any project). Remove unused custom tags with ×.</p>
+      <div id="allTagList" class="check-row" style="margin-top:12px;"></div>
+    </div>
+  </section>
+</div>
+
+<div id="toast" role="status"></div>
+
+<script>
+(function(){
+  var SUPABASE_URL = 'https://umzfjxrrotvwcmurzduz.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtemZqeHJyb3R2d2NtdXJ6ZHV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NTEzMDcsImV4cCI6MjA5MjAyNzMwN30.TR0lKwZeC1_AONrfNgJLYWOykq8u5RBYFGc4q_xpfak';
+  var TABLE = 'tech_projects';
+  var BUCKET = 'tech-projects';
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  var DEFAULT_TAGS = ['Hardware','Software','AI','Robotics','Design','Development'];
+
+  // Row <-> object mapping
+  function rowToProj(r){
+    return {
+      slug: r.slug, num: r.num || '', category: r.category,
+      orderInCategory: r.order_in_category,
+      showOnMain: !!r.show_on_main,
+      orderOnMain: r.order_on_main,
+      en: { title: r.en_title||'', subtitle: r.en_subtitle||'', brief: r.en_brief||'', long: r.en_long||'' },
+      ko: { subtitle: r.ko_subtitle||'', brief: r.ko_brief||'', long: r.ko_long||'' },
+      tags: Array.isArray(r.tags) ? r.tags : [],
+      images: Array.isArray(r.images) ? r.images : []
+    };
+  }
+  function projToRow(p){
+    return {
+      slug: p.slug, num: p.num || null, category: p.category,
+      order_in_category: p.orderInCategory || 1,
+      show_on_main: !!p.showOnMain,
+      order_on_main: p.showOnMain ? (p.orderOnMain || null) : null,
+      en_title: p.en && p.en.title || '',
+      en_subtitle: p.en && p.en.subtitle || '',
+      en_brief: p.en && p.en.brief || '',
+      en_long: p.en && p.en.long || '',
+      ko_subtitle: p.ko && p.ko.subtitle || '',
+      ko_brief: p.ko && p.ko.brief || '',
+      ko_long: p.ko && p.ko.long || '',
+      tags: p.tags || [],
+      images: p.images || []
+    };
+  }
+
+  var state = { projects: [], customTags: [] };
+
+  var SEED_PROJECTS = [
+    {slug:'tendon-driven-dexterous-hand',num:'01',category:'hardware',orderInCategory:1,showOnMain:true,orderOnMain:1,
+      en:{title:'Tendon-driven Dexterous Hand',subtitle:'AI-driven rehabilitation wearable robot system',brief:'Tendon-based structure, bimanual exoskeleton, safe joint control, motion sensing and tension estimation.',long:'A bimanual wearable robot that transfers motion from a user\u2019s healthy hand to the affected one for self-rehabilitation.'},
+      ko:{subtitle:'AI 기반 재활 웨어러블 로봇 시스템',brief:'텐던 기반 구조, 양팔 외골격, 관절 안전 제어, 동작 센싱 및 장력 추정.',long:'건강한 손의 움직임을 반대쪽 손에 그대로 전달해 재활을 돕는 양팔 착용형 로봇 시스템입니다.'},
+      tags:['Hardware','Robotics','AI'],images:[]},
+    {slug:'egomotion-humanoid',num:'02',category:'hardware',orderInCategory:2,showOnMain:true,orderOnMain:2,
+      en:{title:'EgoMotion Humanoid',subtitle:'XR-based full-body teleoperation humanoid',brief:'XR full-body teleoperation, active-sight modules, whole-body motion pipelines, an extensible humanoid control stack.',long:''},
+      ko:{subtitle:'XR 기반 전신 텔레오퍼레이션 휴머노이드',brief:'XR 전신 텔레오퍼레이션, 능동 시야 모듈, 전신 동작 파이프라인, 확장형 휴머노이드 제어 스택.',long:''},
+      tags:['Robotics','Hardware','AI'],images:[]},
+    {slug:'gaplock-simlab',num:'03',category:'hardware',orderInCategory:3,showOnMain:false,orderOnMain:null,
+      en:{title:'GapLock SimLab',subtitle:'Reinforcement-learning simulation platform for robotics',brief:'Custom physics simulation, system-identification pipelines, domain randomization, sim-to-real gap reduction.',long:''},
+      ko:{subtitle:'로보틱스를 위한 강화학습 시뮬레이션 플랫폼',brief:'커스텀 물리 시뮬레이션, 시스템 식별 파이프라인, 도메인 랜덤화, 심투리얼 갭 축소.',long:''},
+      tags:['AI','Robotics','Hardware','Software'],images:[]},
+    {slug:'innokitchen',num:'04',category:'hardware',orderInCategory:4,showOnMain:false,orderOnMain:null,
+      en:{title:'Innokitchen',subtitle:'AI-driven cooking automation robot system',brief:'EIS internal-state sensing, browning-stage classification, ingredient detection, auto-labeling and runtime control.',long:''},
+      ko:{subtitle:'AI 기반 조리 자동화 로봇 시스템',brief:'EIS 내부 상태 센싱, 갈변 단계 판별, 식재료 객체 인식, 자동 라벨링 및 런타임 제어.',long:''},
+      tags:['AI','Robotics','Hardware'],images:[]},
+    {slug:'astropet',num:'08',category:'hardware',orderInCategory:5,showOnMain:false,orderOnMain:null,
+      en:{title:'AstroPet',subtitle:'Non-invasive blood glucose measurement device for pets',brief:'BIA impedance sensing, sensor calibration, measurement-state control, data-quality management.',long:''},
+      ko:{subtitle:'반려동물용 비침습 혈당 측정 장치',brief:'BIA 임피던스 센싱, 센서 보정 시스템, 측정 상태 제어, 데이터 품질 관리.',long:''},
+      tags:['AI','Software','Hardware'],images:[]},
+    {slug:'plantsphere',num:'05',category:'software',orderInCategory:1,showOnMain:true,orderOnMain:3,
+      en:{title:'PlantSphere',subtitle:'Edge-to-Cloud smart farm data platform',brief:'ESP32 sensor telemetry, edge buffering and retransmission, multi-sensor synchronization, cloud analytics and reporting.',long:''},
+      ko:{subtitle:'엣지-투-클라우드 스마트팜 데이터 플랫폼',brief:'ESP32 센서 텔레메트리, 엣지 버퍼링 및 재전송, 복합 센서 동기화, 클라우드 분석 및 리포팅.',long:''},
+      tags:['AI','Software','Hardware'],images:[]},
+    {slug:'docu-factory',num:'06',category:'software',orderInCategory:2,showOnMain:true,orderOnMain:4,
+      en:{title:'Docu-Factory',subtitle:'Evidence-based AI document generation platform',brief:'Evidence-anchored architecture, claim/counter-claim generation, LLM orchestration, document indexing.',long:''},
+      ko:{subtitle:'근거 기반 AI 문서 생성 플랫폼',brief:'Evidence 기반 구조, 주장/반박 생성, LLM 오케스트레이션, 문서 인덱싱.',long:''},
+      tags:['AI','Software'],images:[]},
+    {slug:'digital-mirror-therapy',num:'07',category:'software',orderInCategory:3,showOnMain:false,orderOnMain:null,
+      en:{title:'Digital Mirror Therapy',subtitle:'Pose-estimation-based rehabilitation feedback system',brief:'Real-time pose estimation, skeleton stabilization, joint-motion analysis, mirror-style visual feedback.',long:''},
+      ko:{subtitle:'포즈 추정 기반 재활 피드백 시스템',brief:'실시간 포즈 추정, 스켈레톤 안정화, 관절 움직임 분석, 거울형 시각 피드백.',long:''},
+      tags:['AI','Software'],images:[]},
+    {slug:'dongin-legal-chatbot',num:'09',category:'software',orderInCategory:4,showOnMain:false,orderOnMain:null,
+      en:{title:'Dongin Legal AI Chatbot',subtitle:'Legal consulting AI chatbot system',brief:'Structured document indexing, RAG-based response flow, consultation-logic control, log-driven improvement loop.',long:''},
+      ko:{subtitle:'법률 상담 AI 챗봇 시스템',brief:'구조화 문서 인덱싱, RAG 기반 응답 흐름, 상담 로직 제어, 로그 기반 개선 루프.',long:''},
+      tags:['AI','Software','Design','Development'],images:[]}
+  ];
+
+  async function fetchProjects(){
+    var res = await sb.from(TABLE).select('*').order('category').order('order_in_category');
+    if (res.error) { console.error(res.error); toast('Load failed: ' + res.error.message); return; }
+    state.projects = (res.data || []).map(rowToProj);
+  }
+  async function upsertProject(p){
+    var { error } = await sb.from(TABLE).upsert(projToRow(p));
+    if (error) { console.error(error); throw error; }
+  }
+  async function upsertMany(projs){
+    var rows = projs.map(projToRow);
+    var { error } = await sb.from(TABLE).upsert(rows);
+    if (error) { console.error(error); throw error; }
+  }
+  async function deleteProjectBySlug(slug){
+    var { error } = await sb.from(TABLE).delete().eq('slug', slug);
+    if (error) { console.error(error); throw error; }
+  }
+  async function uploadImage(file, slug, idx){
+    var ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+    var pad = idx < 10 ? '0'+idx : ''+idx;
+    var filename = (slug || 'unsorted') + '/' + pad + '-' + Date.now() + '.' + ext;
+    var { error } = await sb.storage.from(BUCKET).upload(filename, file, { contentType: file.type, upsert: true });
+    if (error) { console.error(error); throw error; }
+    return sb.storage.from(BUCKET).getPublicUrl(filename).data.publicUrl;
+  }
+
+  function $(s, r){ return (r||document).querySelector(s); }
+  function $$(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+  function toast(msg){
+    var t = $('#toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(toast._t); toast._t = setTimeout(function(){ t.classList.remove('show'); }, 1600);
+  }
+  function escape(s){ return (s||'').replace(/[&<>"']/g, function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];}); }
+  function allTags(){
+    var set = {};
+    DEFAULT_TAGS.forEach(function(t){ set[t] = true; });
+    (state.customTags||[]).forEach(function(t){ set[t] = true; });
+    state.projects.forEach(function(p){ (p.tags||[]).forEach(function(t){ set[t] = true; }); });
+    return Object.keys(set);
+  }
+
+  // Busy indicator helper
+  function busy(el, on){
+    if (!el) return;
+    if (on) { el.disabled = true; el.__origText = el.textContent; el.textContent = 'Saving…'; }
+    else { el.disabled = false; if (el.__origText) el.textContent = el.__origText; }
+  }
+
+  $$('.tab').forEach(function(t){
+    t.addEventListener('click', function(){
+      $$('.tab').forEach(function(x){ x.classList.remove('is-active'); });
+      $$('.panel').forEach(function(x){ x.classList.remove('is-active'); });
+      t.classList.add('is-active');
+      $('#panel-' + t.dataset.panel).classList.add('is-active');
+      if (t.dataset.panel === 'list') renderList();
+      if (t.dataset.panel === 'tags') renderTagLibrary();
+    });
+  });
+
+  var HANDLE_SVG = '<svg viewBox="0 0 10 16" fill="currentColor" aria-hidden="true"><circle cx="2" cy="3" r="1.4"/><circle cx="8" cy="3" r="1.4"/><circle cx="2" cy="8" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="2" cy="13" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg>';
+
+  var rowDragging = null;
+
+  function renderList(){
+    var list = $('#projList');
+    if (!state.projects.length) {
+      list.innerHTML = '<div class="empty-state">No projects yet. Click <strong>+ New project</strong> to add one.</div>';
+      return;
+    }
+    var sorted = state.projects.slice().sort(function(a,b){
+      if (a.category !== b.category) return a.category.localeCompare(b.category);
+      return (a.orderInCategory||0) - (b.orderInCategory||0);
+    });
+    list.innerHTML = sorted.map(function(p){
+      var catLabel = p.category === 'hardware' ? 'HW & Robotics' : 'AI & Software';
+      return (
+        '<div class="proj-row" data-slug="' + escape(p.slug) + '" data-category="' + escape(p.category) + '">' +
+          '<div class="proj-handle" draggable="true" title="Drag to reorder" aria-label="Drag to reorder">' + HANDLE_SVG + '</div>' +
+          '<div class="proj-num">#' + escape(p.num || '--') + '</div>' +
+          '<div class="proj-title">' + escape((p.en&&p.en.title)||p.slug) + '<small>' + escape(p.slug) + '</small></div>' +
+          '<div class="proj-category">' + catLabel + '</div>' +
+          '<div class="proj-flags"><span class="proj-flag' + (p.showOnMain?' on':'') + '">' + (p.showOnMain?'MAIN':'—') + '</span></div>' +
+          '<div class="proj-actions"><button class="btn small" data-action="edit" data-slug="' + escape(p.slug) + '">Edit</button></div>' +
+        '</div>'
+      );
+    }).join('');
+    $$('[data-action="edit"]', list).forEach(function(btn){
+      btn.addEventListener('click', function(){ editProject(btn.dataset.slug); });
+    });
+    wireProjDrag(list);
+  }
+
+  function wireProjDrag(list){
+    $$('.proj-row', list).forEach(function(row){
+      var handle = row.querySelector('.proj-handle');
+      handle.addEventListener('dragstart', function(e){
+        rowDragging = row;
+        row.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        try { e.dataTransfer.setData('text/plain', 'row'); } catch(_){}
+      });
+      handle.addEventListener('dragend', function(){
+        if (rowDragging) rowDragging.classList.remove('dragging');
+        $$('.proj-row', list).forEach(function(r){ r.classList.remove('drag-over'); });
+        rowDragging = null;
+        commitRowOrder(list);
+      });
+      row.addEventListener('dragover', function(e){
+        if (!rowDragging || rowDragging === row) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        row.classList.add('drag-over');
+        var rect = row.getBoundingClientRect();
+        var before = e.clientY < rect.top + rect.height / 2;
+        if (before) list.insertBefore(rowDragging, row);
+        else list.insertBefore(rowDragging, row.nextSibling);
+      });
+      row.addEventListener('dragleave', function(){ row.classList.remove('drag-over'); });
+      row.addEventListener('drop', function(e){ e.preventDefault(); row.classList.remove('drag-over'); });
+    });
+  }
+
+  async function commitRowOrder(list){
+    var rows = $$('.proj-row', list);
+    var counters = { hardware: 0, software: 0 };
+    var newOrder = [];
+    rows.forEach(function(r, idx){
+      var slug = r.dataset.slug;
+      var p = state.projects.find(function(x){ return x.slug === slug; });
+      if (!p) return;
+      var above = rows[idx-1], below = rows[idx+1];
+      var aboveCat = above && above.dataset.category;
+      var belowCat = below && below.dataset.category;
+      var newCat = p.category;
+      if (aboveCat && belowCat && aboveCat === belowCat) newCat = aboveCat;
+      else if (aboveCat && !belowCat) newCat = aboveCat;
+      else if (!aboveCat && belowCat) newCat = belowCat;
+      p.category = newCat;
+      r.dataset.category = newCat;
+      counters[newCat] = (counters[newCat]||0) + 1;
+      p.orderInCategory = counters[newCat];
+      newOrder.push(p);
+    });
+    state.projects = newOrder;
+    try {
+      await upsertMany(state.projects);
+      toast('Order updated');
+    } catch(e){ toast('Order save failed'); }
+    renderList();
+  }
+
+  function renderTagLibrary(){
+    var host = $('#allTagList');
+    var tags = allTags();
+    if (!tags.length) { host.innerHTML = '<p class="empty-state">No tags yet.</p>'; return; }
+    host.innerHTML = tags.map(function(t){
+      var inUse = state.projects.some(function(p){ return (p.tags||[]).indexOf(t) > -1; });
+      var canDelete = !inUse && DEFAULT_TAGS.indexOf(t) === -1;
+      return '<label><span>' + escape(t) + (canDelete ? ' <button type="button" class="btn small" style="margin-left:6px;padding:2px 8px;" data-del-tag="' + escape(t) + '">×</button>' : '') + '</span></label>';
+    }).join('');
+    $$('[data-del-tag]', host).forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var name = btn.dataset.delTag;
+        state.customTags = (state.customTags||[]).filter(function(x){ return x !== name; });
+        renderTagLibrary(); toast('Tag removed');
+      });
+    });
+  }
+
+  var form = $('#projForm');
+  var editingSlug = null;
+
+  function renderTagsCheck(selected){
+    selected = selected || [];
+    var host = $('#tag-list');
+    var tags = allTags();
+    host.innerHTML = tags.map(function(t){
+      var checked = selected.indexOf(t) > -1 ? ' checked' : '';
+      return '<label><input type="checkbox" name="tag" value="' + escape(t) + '"' + checked + '><span>' + escape(t) + '</span></label>';
+    }).join('');
+  }
+
+  var imageSlotsEl = $('#image-slots');
+  var dragging = null;
+  var HANDLE_SVG = '<svg viewBox="0 0 10 16" fill="currentColor" aria-hidden="true"><circle cx="2" cy="3" r="1.4"/><circle cx="8" cy="3" r="1.4"/><circle cx="2" cy="8" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="2" cy="13" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg>';
+  function createImageSlot(url){
+    var slot = document.createElement('div');
+    slot.className = 'image-slot';
+    var slugNow = ($('#f-slug').value || 'slug').trim() || 'slug';
+    var count = imageSlotsEl.children.length + 1;
+    var pad = count < 10 ? '0' + count : '' + count;
+    slot.innerHTML =
+      '<div class="image-slot-handle" draggable="true" title="Drag to reorder" aria-label="Drag to reorder">' + HANDLE_SVG + '</div>' +
+      '<button type="button" class="image-slot-remove" aria-label="Remove">&times;</button>' +
+      '<div class="preview"><span>IMAGE ' + count + '<span class="preview-hint">Click or drop file</span></span></div>' +
+      '<input type="text" placeholder="../assets/projects/' + slugNow + '-' + pad + '.jpg (or upload above)">' +
+      '<input type="file" class="image-slot-file" accept="image/*" hidden>';
+    var inp = slot.querySelector('input[type="text"]');
+    var fileInp = slot.querySelector('input[type="file"]');
+    var prev = slot.querySelector('.preview');
+    var handle = slot.querySelector('.image-slot-handle');
+    function update(){
+      var v = inp.value.trim();
+      var n = Array.prototype.indexOf.call(imageSlotsEl.children, slot) + 1;
+      prev.innerHTML = v
+        ? '<img src="' + escape(v) + '" alt="" onerror="this.parentNode.innerHTML=\'<span>Broken URL<span class=\\\'preview-hint\\\'>Click or drop file</span></span>\';">'
+        : '<span>IMAGE ' + n + '<span class="preview-hint">Click or drop file</span></span>';
+    }
+    async function readFile(file){
+      if (!file || !/^image\//.test(file.type)) return;
+      // Show base64 preview immediately and keep it visible
+      await new Promise(function(resolve){
+        var reader = new FileReader();
+        reader.onload = function(){
+          prev.innerHTML = '<img src="' + reader.result + '" alt="">';
+          resolve();
+        };
+        reader.onerror = function(){ resolve(); };
+        reader.readAsDataURL(file);
+      });
+      // Upload to Supabase storage
+      prev.classList.add('drop-hover');
+      try {
+        var slug = ($('#f-slug').value || 'new').trim() || 'new';
+        var idx = Array.prototype.indexOf.call(imageSlotsEl.children, slot) + 1;
+        var url = await uploadImage(file, slug, idx);
+        inp.value = url;
+        toast('Uploaded');
+      } catch(err){
+        console.error(err);
+        toast('Upload failed: ' + (err.message || 'error'));
+      } finally {
+        prev.classList.remove('drop-hover');
+      }
+    }
+    if (url) inp.value = url;
+    inp.addEventListener('input', update);
+    prev.addEventListener('click', function(){ fileInp.click(); });
+    fileInp.addEventListener('change', function(){ if (fileInp.files[0]) readFile(fileInp.files[0]); fileInp.value = ''; });
+    // Drag & drop file onto preview
+    prev.addEventListener('dragover', function(e){
+      if (e.dataTransfer && e.dataTransfer.types && Array.prototype.indexOf.call(e.dataTransfer.types, 'Files') > -1) {
+        e.preventDefault(); e.stopPropagation();
+        prev.classList.add('drop-hover');
+      }
+    });
+    prev.addEventListener('dragleave', function(){ prev.classList.remove('drop-hover'); });
+    prev.addEventListener('drop', function(e){
+      if (!(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0])) return;
+      e.preventDefault(); e.stopPropagation();
+      prev.classList.remove('drop-hover');
+      readFile(e.dataTransfer.files[0]);
+    });
+    slot.querySelector('.image-slot-remove').addEventListener('click', function(e){
+      e.stopPropagation();
+      slot.remove(); renumberSlots();
+    });
+
+    // Drag handlers on handle only
+    handle.addEventListener('dragstart', function(e){
+      dragging = slot;
+      slot.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      try { e.dataTransfer.setData('text/plain', 'slot'); } catch(_){}
+    });
+    handle.addEventListener('dragend', function(){
+      if (dragging) dragging.classList.remove('dragging');
+      Array.prototype.forEach.call(imageSlotsEl.children, function(s){ s.classList.remove('drag-over'); });
+      dragging = null;
+      renumberSlots();
+    });
+    slot.addEventListener('dragover', function(e){
+      if (!dragging || dragging === slot) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      slot.classList.add('drag-over');
+      var rect = slot.getBoundingClientRect();
+      var horizontal = rect.height < rect.width * 0.9;
+      var before = horizontal
+        ? e.clientX < rect.left + rect.width / 2
+        : e.clientY < rect.top + rect.height / 2;
+      if (before) imageSlotsEl.insertBefore(dragging, slot);
+      else imageSlotsEl.insertBefore(dragging, slot.nextSibling);
+    });
+    slot.addEventListener('dragleave', function(){ slot.classList.remove('drag-over'); });
+    slot.addEventListener('drop', function(e){ e.preventDefault(); slot.classList.remove('drag-over'); });
+
+    imageSlotsEl.appendChild(slot);
+    update();
+    return slot;
+  }
+  function renumberSlots(){
+    Array.prototype.forEach.call(imageSlotsEl.children, function(slot, i){
+      var prev = slot.querySelector('.preview');
+      var inp = slot.querySelector('input');
+      var n = i + 1;
+      var pad = n < 10 ? '0' + n : '' + n;
+      inp.placeholder = '../assets/projects/' + (($('#f-slug').value || 'slug').trim() || 'slug') + '-' + pad + '.jpg';
+      if (!inp.value.trim()) prev.textContent = 'IMAGE ' + n;
+    });
+  }
+  function renderImageSlots(urls){
+    imageSlotsEl.innerHTML = '';
+    var arr = (urls && urls.length) ? urls : [''];
+    arr.forEach(function(u){ createImageSlot(u); });
+  }
+  function collectImages(){
+    return Array.prototype.map.call(imageSlotsEl.querySelectorAll('input'), function(i){ return i.value.trim(); })
+      .filter(function(v){ return v.length > 0; });
+  }
+  $('#addImageBtn').addEventListener('click', function(){ createImageSlot(''); });
+  // Update placeholders when slug changes
+  $('#f-slug').addEventListener('input', renumberSlots);
+
+  function fillForm(p){
+    $('#f-id').value = p ? p.slug : '';
+    $('#f-slug').value = p ? p.slug : '';
+    $('#f-num').value = p ? (p.num||'') : '';
+    var cat = p ? p.category : 'hardware';
+    $$('input[name="category"]').forEach(function(r){ r.checked = r.value === cat; });
+    $('#f-order-cat').value = p ? (p.orderInCategory||1) : 1;
+    $('#f-order-main').value = p && p.orderOnMain ? p.orderOnMain : '';
+    $('#f-show-main').checked = !!(p && p.showOnMain);
+    $('#f-en-title').value = p ? (p.en&&p.en.title||'') : '';
+    $('#f-en-subtitle').value = p ? (p.en&&p.en.subtitle||'') : '';
+    $('#f-en-brief').value = p ? (p.en&&p.en.brief||'') : '';
+    $('#f-en-long').value = p ? (p.en&&p.en.long||'') : '';
+    $('#f-ko-subtitle').value = p ? (p.ko&&p.ko.subtitle||'') : '';
+    $('#f-ko-brief').value = p ? (p.ko&&p.ko.brief||'') : '';
+    $('#f-ko-long').value = p ? (p.ko&&p.ko.long||'') : '';
+    renderTagsCheck(p ? (p.tags||[]) : []);
+    renderImageSlots(p ? (p.images||[]) : []);
+    $('#deleteProjectBtn').style.display = p ? '' : 'none';
+  }
+  function goToEdit(){
+    $$('.tab').forEach(function(x){ x.classList.remove('is-active'); });
+    $$('.panel').forEach(function(x){ x.classList.remove('is-active'); });
+    $('.tab[data-panel="edit"]').classList.add('is-active');
+    $('#panel-edit').classList.add('is-active');
+  }
+  function newProject(){ editingSlug = null; fillForm(null); goToEdit(); }
+  function editProject(slug){
+    var p = state.projects.find(function(x){ return x.slug === slug; });
+    if (!p) return;
+    editingSlug = slug; fillForm(p); goToEdit();
+  }
+
+  $('#newProjectBtn').addEventListener('click', newProject);
+  $('#cancelEditBtn').addEventListener('click', function(){
+    editingSlug = null; fillForm(null);
+    $('.tab[data-panel="list"]').click();
+  });
+  $('#deleteProjectBtn').addEventListener('click', async function(){
+    if (!editingSlug) return;
+    if (!confirm('Delete this project? This removes the row from Supabase.')) return;
+    var btn = this; busy(btn, true);
+    try {
+      await deleteProjectBySlug(editingSlug);
+      state.projects = state.projects.filter(function(p){ return p.slug !== editingSlug; });
+      editingSlug = null; toast('Deleted');
+      $('.tab[data-panel="list"]').click();
+    } catch(e){ toast('Delete failed: ' + (e.message||'error')); }
+    finally { busy(btn, false); }
+  });
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var slug = $('#f-slug').value.trim();
+    if (!/^[a-z0-9\-]+$/.test(slug)) { alert('Slug must be lowercase letters, numbers, hyphens.'); return; }
+    var data = {
+      slug: slug,
+      num: $('#f-num').value.trim(),
+      category: ($$('input[name="category"]').find(function(r){return r.checked;})||{}).value || 'hardware',
+      orderInCategory: Number($('#f-order-cat').value) || 1,
+      showOnMain: $('#f-show-main').checked,
+      orderOnMain: $('#f-show-main').checked ? (Number($('#f-order-main').value) || 0) : null,
+      en: {
+        title: $('#f-en-title').value.trim(),
+        subtitle: $('#f-en-subtitle').value.trim(),
+        brief: $('#f-en-brief').value.trim(),
+        long: $('#f-en-long').value.trim()
+      },
+      ko: {
+        subtitle: $('#f-ko-subtitle').value.trim(),
+        brief: $('#f-ko-brief').value.trim(),
+        long: $('#f-ko-long').value.trim()
+      },
+      tags: $$('input[name="tag"]:checked').map(function(c){ return c.value; }),
+      images: collectImages()
+    };
+    var submitBtn = form.querySelector('button[type="submit"]');
+    busy(submitBtn, true);
+    try {
+      // Slug changed → delete old first
+      if (editingSlug && editingSlug !== slug) {
+        await deleteProjectBySlug(editingSlug);
+        state.projects = state.projects.filter(function(p){ return p.slug !== editingSlug; });
+      }
+      await upsertProject(data);
+      var idx = state.projects.findIndex(function(p){ return p.slug === data.slug; });
+      if (idx > -1) state.projects[idx] = data;
+      else state.projects.push(data);
+      editingSlug = data.slug;
+      toast('Saved');
+      $('.tab[data-panel="list"]').click();
+    } catch(err){
+      toast('Save failed: ' + (err.message||'error'));
+    } finally {
+      busy(submitBtn, false);
+    }
+  });
+
+  $('#addTagBtn').addEventListener('click', function(){
+    var v = $('#newTagInput').value.trim();
+    if (!v) return;
+    if (allTags().indexOf(v) > -1) { toast('Tag already exists'); return; }
+    if (!state.customTags) state.customTags = [];
+    state.customTags.push(v);
+    var selected = $$('input[name="tag"]:checked').map(function(c){ return c.value; });
+    selected.push(v);
+    renderTagsCheck(selected);
+    $('#newTagInput').value = '';
+    toast('Tag added (saved with next project save)');
+  });
+  $('#newTagInput').addEventListener('keydown', function(e){
+    if (e.key === 'Enter') { e.preventDefault(); $('#addTagBtn').click(); }
+  });
+
+  $('#exportBtn').addEventListener('click', function(){
+    var blob = new Blob([JSON.stringify(state, null, 2)], {type: 'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'infinique-tech-projects-' + new Date().toISOString().slice(0,10) + '.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast('Exported JSON');
+  });
+  $('#seedBtn').addEventListener('click', async function(){
+    if (!confirm('Seed ' + SEED_PROJECTS.length + ' default projects? Existing slugs will be overwritten.')) return;
+    var btn = this; busy(btn, true);
+    try {
+      await upsertMany(SEED_PROJECTS);
+      await fetchProjects();
+      renderList();
+      toast('Seeded ' + SEED_PROJECTS.length + ' projects');
+    } catch(err){ alert('Seed failed: ' + (err.message||'error')); }
+    finally { busy(btn, false); }
+  });
+  $('#importBtn').addEventListener('click', function(){ $('#fileInput').click(); });
+  $('#fileInput').addEventListener('change', function(e){
+    var file = e.target.files[0]; if (!file) return;
+    var reader = new FileReader();
+    reader.onload = async function(){
+      try {
+        var parsed = JSON.parse(reader.result);
+        if (!parsed.projects) throw new Error('Invalid format');
+        if (!confirm('Upsert imported projects into Supabase? (Existing slugs will be overwritten.)')) return;
+        await upsertMany(parsed.projects);
+        if (parsed.customTags) state.customTags = parsed.customTags.slice();
+        await fetchProjects();
+        renderList();
+        toast('Imported ' + parsed.projects.length + ' projects');
+      } catch(err){ alert('Failed to import: ' + err.message); }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+
+  (async function init(){
+    await fetchProjects();
+    renderList();
+    fillForm(null);
+  })();
+})();
+</script>
+</body>
+</html>

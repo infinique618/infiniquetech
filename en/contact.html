@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Infinique Dev — 기술 개발 문의 & project consultation</title>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+  <meta name="description" content="Infinique Dev에 Robotics, hardware, AI, and software development 프로젝트를 문의하세요. 요구사항 검토부터 PoC, 제품화, 운영까지 상담합니다.">
+  <meta name="keywords" content="기술 개발 문의, 로보틱스 개발, 하드웨어 개발, 펌웨어 개발, AI 개발, 소프트웨어 개발, LLM, 컴퓨터비전, Infinique Dev contact">
+  <meta name="author" content="Infinique">
+  <link rel="canonical" href="https://infinique.kr/tech/en/contact.html">
+  <link rel="alternate" hreflang="ko" href="https://infinique.kr/tech/en/contact.html">
+  <link rel="alternate" hreflang="en" href="https://infinique.kr/tech/en/contact.html">
+  <link rel="alternate" hreflang="x-default" href="https://infinique.kr/tech/en/contact.html">
+  <meta property="og:title" content="Contact | Infinique Dev — 기술 개발 문의">
+  <meta property="og:description" content="Robotics, hardware, AI, and software development 프로젝트를 Infinique Dev에 문의하세요.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://infinique.kr/tech/contact.html">
+  <meta property="og:site_name" content="Infinique">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:image" content="https://infinique.kr/assets/og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1120">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact | Infinique Dev — 기술 개발 문의">
+  <meta name="twitter:description" content="Robotics, hardware, AI, and software development 프로젝트를 Infinique Dev에 문의하세요.">
+  <meta name="twitter:image" content="https://infinique.kr/assets/og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy.css" type="text/css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="../assets/70085daa54d49f05a0f0ca04076f60814897b7f6.css">
+  <!-- Cloudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <style>
+    :root {
+      --bg: #000;
+      --fg: #fff;
+      --line: rgba(255,255,255,0.1);
+      --glass: rgba(255,255,255,0.04);
+      --muted: rgba(255,255,255,0.58);
+      --field-bg: rgba(255,255,255,0.04);
+      --field-border: rgba(255,255,255,0.12);
+      --field-focus: rgba(255,255,255,0.36);
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body, p, a, span, button, input, textarea, select, li, label {
+      font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+        "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+        "Malgun Gothic", sans-serif;
+    }
+
+    .page-shell {
+      min-height: 100vh;
+      background: #000;
+    }
+
+    /* ── Nav ── */
+    .nav-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 64px;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      max-width: 160px;
+    }
+
+    .nav-brand svg {
+      display: block;
+      width: 100%;
+      max-width: 96px;
+      height: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links a:hover { background: #444; }
+    .nav-links a.is-active { background: #fff; color: #000; }
+
+    /* ── Lang toggle ── */
+    .lang-wrap { position: relative; }
+
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .lang-btn:hover { background: rgba(255,255,255,0.08); }
+
+    #langDropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+      min-width: 132px;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      overflow: hidden;
+      z-index: 100;
+    }
+
+    #langDropdown a {
+      display: block;
+      padding: 10px 16px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s;
+      min-height: auto;
+      border-radius: 0;
+    }
+
+    #langDropdown a:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── Nav toggle (hamburger) ── */
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      cursor: pointer;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: #fff;
+      border-radius: 999px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      transform-origin: center;
+    }
+
+    /* ── Page Layout ── */
+    .contact-page {
+      width: 100%;
+      padding: 132px 24px 100px;
+    }
+
+    .contact-inner {
+      width: 100%;
+      max-width: 1920px;
+      margin: 0 auto;
+    }
+
+    /* ── Hero ── */
+    .contact-hero::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    @media (max-width: 1200px) {
+      }
+
+    /* ── Two-column grid ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── Info panel ── */
+    .info-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      position: sticky;
+      top: 96px;
+    }
+
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .info-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .info-value {
+      font-size: 16px;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    .info-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .info-email:hover { opacity: 0.7; }
+
+    .info-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(255,255,255,0.18);
+    }
+
+    .info-process {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .process-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .process-step:first-child { padding-top: 0; }
+    .process-step:last-child { border-bottom: none; }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .step-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .step-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── Form panel ── */
+    .form-panel {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 48px;
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .form-group:last-of-type { margin-bottom: 0; }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .form-label .req {
+      color: rgba(255,100,100,0.8);
+      margin-left: 3px;
+    }
+
+    .form-field {
+      appearance: none;
+      width: 100%;
+      padding: 13px 16px;
+      background: var(--field-bg);
+      border: 1px solid var(--field-border);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 14px;
+      line-height: 1.5;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      outline: none;
+    }
+
+    .form-field::placeholder { color: rgba(255,255,255,0.26); }
+
+    .form-field:focus {
+      border-color: var(--field-focus);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .form-field:invalid:not(:placeholder-shown) {
+      border-color: rgba(255,80,80,0.5);
+    }
+
+    select.form-field {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+
+    select.form-field option {
+      background: #111;
+      color: #fff;
+    }
+
+    textarea.form-field {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .form-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin: 28px 0;
+    }
+
+    /* Privacy checkbox */
+    .privacy-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 28px;
+      cursor: pointer;
+    }
+
+    .privacy-wrap input[type="checkbox"] {
+      appearance: none;
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 5px;
+      background: var(--field-bg);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    .privacy-wrap input[type="checkbox"]:checked {
+      background: #fff;
+      border-color: #fff;
+    }
+
+    .privacy-wrap input[type="checkbox"]:checked::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 2px; left: 5px;
+      width: 5px; height: 9px;
+      border: 2px solid #000;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+
+    .privacy-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.55;
+    }
+
+    .privacy-text a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Submit button */
+    .form-submit {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .btn-submit {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 36px;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); opacity: 1; }
+    .btn-submit:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    .btn-submit svg {
+      transition: transform 0.2s ease;
+    }
+
+    .btn-submit:hover svg { transform: translateX(3px); }
+
+    .submit-note {
+      font-size: 12px;
+      color: rgba(255,255,255,0.36);
+      line-height: 1.5;
+    }
+
+    /* Turnstile */
+    .turnstile-wrap {
+      margin-bottom: 24px;
+    }
+
+    .turnstile-error {
+      display: none;
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgba(255,100,100,0.9);
+    }
+
+    /* Status messages */
+    .form-status {
+      display: none;
+      margin-top: 20px;
+      padding: 16px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .form-status.success {
+      align-items: center;
+      gap: 10px;
+      background: rgba(60,200,100,0.1);
+      border: 1px solid rgba(60,200,100,0.28);
+      color: rgba(120,230,140,1);
+    }
+
+    .form-status.error {
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,70,70,0.08);
+      border: 1px solid rgba(255,70,70,0.24);
+      color: rgba(255,130,130,1);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 56px;
+      }
+      .info-panel {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 40px 64px;
+      }
+      .info-process {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-bar { padding: 12px 16px; }
+
+      .nav-toggle { display: flex; margin-left: auto; }
+
+      .nav-links {
+        display: none !important;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 14px;
+        right: 14px;
+        padding: 12px;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 14px;
+        background: rgba(0,0,0,0.92);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        z-index: 60;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+      }
+
+      .nav-bar.nav-open .nav-links { display: flex !important; }
+
+      .nav-links a, .lang-wrap { width: 100%; }
+
+      .nav-links a {
+        justify-content: flex-start;
+        padding: 12px 14px;
+        border-radius: 12px;
+      }
+
+      .lang-btn {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 12px 14px;
+        border-radius: 12px;
+      }
+
+      #langDropdown {
+        position: static;
+        margin-top: 4px;
+        min-width: 0;
+        border: none;
+        background: rgba(255,255,255,0.04);
+        backdrop-filter: none;
+        box-shadow: none;
+      }
+
+      .lang-wrap.lang-open #langDropdown { display: block; }
+
+      .nav-bar.nav-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+      .nav-bar.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+      .nav-bar.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+      .contact-page {
+        padding: 108px 16px 12px;
+      }
+
+      .form-panel {
+        padding: 28px 20px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .form-submit {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 499px) {
+      }
+
+    .footer {
+      padding: 16px 24px 80px;
+    }
+
+    .footer-inner {
+      max-width: 1920px;
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: rgba(255,255,255,0.62);
+      font-size: 14px;
+    }
+
+    .footer a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer a:hover { color: #fff; }
+
+    @media (max-width: 768px) {
+      .footer { padding: 8px 16px 56px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (min-width: 769px) {
+      .nav-links { display: flex !important; }
+      .nav-toggle { display: none !important; }
+    }
+  
+    /* Footer responsive */
+    @media (max-width: 768px) {
+      .footer-main-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 32px !important;
+      }
+      .footer-main-row > div:last-child {
+        align-items: flex-start !important;
+      }
+      .footer-addr {
+        flex-wrap: wrap !important;
+        white-space: normal !important;
+      }
+    }
+
+body, p, div, span, h1, h2, h3, h4, h5, h6, a, li, button, td, th {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Responsive <br> utilities */
+.br-sm, .br-md, .br-lg { display: none; }
+@media (max-width: 767px) { .br-sm { display: inline; } }
+@media (min-width: 768px) and (max-width: 1023px) { .br-md { display: inline; } }
+@media (min-width: 1024px) { .br-lg { display: inline; } }
+@media (max-width: 767px) { .br-hide-sm { display: none !important; } }
+@media (min-width: 768px) and (max-width: 1023px) { .br-hide-md { display: none !important; } }
+@media (min-width: 1024px) { .br-hide-lg { display: none !important; } }
+/* Convenience combos */
+@media (max-width: 1023px) { .br-lg-only { display: none !important; } }
+@media (min-width: 768px) { .br-sm-only { display: none !important; } }
+
+@media (max-width: 768px) {
+  .footer-main-row img[alt="Infinique"],
+  .footer-main-row img[alt="Dev logo"] { width: 120px !important; }
+}
+
+@media (max-width: 768px) {
+  footer .text-lg { font-size: 12px !important; }
+  footer .footer-copy p, footer .footer-copy { font-size: 11px !important; }
+  footer p { font-size: 11px !important; }
+  footer .footer-addr,
+  footer .footer-addr a,
+  footer .footer-addr span { font-size: 12px !important; }
+  footer .footer-addr a svg { width: 14px !important; height: 14px !important; }
+  footer .footer-addr > .text-lg,
+  footer .footer-addr > a,
+  footer .footer-addr > a span { white-space: nowrap !important; }
+}
+@media (max-width: 360px) {
+  footer .text-lg { font-size: 11px !important; }
+  footer p { font-size: 10px !important; }
+  footer .footer-addr,
+  footer .footer-addr a,
+  footer .footer-addr span { font-size: 11px !important; }
+  footer .footer-addr a svg { width: 12px !important; height: 12px !important; }
+  .footer-main-row img[alt="Infinique"],
+  .footer-main-row img[alt="Dev logo"] { width: 100px !important; }
+}
+
+    /* Unified sub-page hero (work/about/contact) */
+        .work-hero {
+      position: relative;
+      display: flex;
+      align-items: end;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 20px 40px;
+      margin-bottom: 34px;
+      padding-bottom: 60px;
+    }
+    .work-hero > div:first-child { flex: 0 1 auto; min-width: 0; }
+    .work-hero::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+    .work-kicker {
+      margin: 0 0 10px;
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.58);
+    }
+    .work-title {
+      margin: 0;
+      font-family: 'Paperlogy', 'Pretendard', sans-serif !important;
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .work-copy {
+      flex: 1 1 420px;
+      max-width: 1200px;
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.76);
+    }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Infinique",
+  "alternateName": "인피니크",
+  "url": "https://infinique.kr/",
+  "logo": "https://infinique.kr/assets/infinique_logo.svg",
+  "image": "https://infinique.kr/assets/og.png",
+  "description": "Engineering partner for robotics, hardware, AI, and software product development.",
+  "email": "infinique@infinique.co.kr",
+  "sameAs": ["https://infinique.kr/"],
+  "areaServed": "KR"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact | Infinique Dev",
+  "url": "https://infinique.kr/tech/contact.html",
+  "description": "Robotics, hardware, AI, and software development 프로젝트를 Infinique Dev에 문의하세요.",
+  "inLanguage": "ko",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Infinique",
+    "email": "infinique@infinique.co.kr",
+    "url": "https://infinique.kr/"
+  }
+}
+</script>
+</head>
+<body>
+  <div class="page-shell">
+
+    <!-- Navigation -->
+    <header class="nav-bar">
+      <a class="nav-brand" href="./index.html" aria-label="Infinique Dev Home"><img src="../assets/dev_logo_white.svg" alt="Infinique Dev" style="height:16px;width:auto;"></a>
+      <nav class="nav-links" id="siteNav">
+        <a href="./index.html">Home</a>
+        <a href="./hardware.html">HW &amp; Robotics</a>
+        <a href="./software.html">SW &amp; AI</a>
+        <a href="./about.html">About</a>
+        <a class="is-active" href="./contact.html">Contact</a>
+        <div class="lang-wrap">
+          <button id="langToggle" class="lang-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4" ry="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+            <span id="langLabel">EN</span>
+          </button>
+          <div id="langDropdown">
+            <a href="#" onclick="setLang('ko');return false;">Korean</a>
+            <a href="#" onclick="setLang('en');return false;">English</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main -->
+    <main class="contact-page">
+      <div class="contact-inner">
+
+        <!-- Hero -->
+        <section class="work-hero">
+          <div>
+            <p class="work-kicker">Get in Touch</p>
+            <h1 class="work-title">Contact.</h1>
+          </div>
+          <p class="work-copy">Tell us about your robotics, hardware, AI, or software development needs — or a PoC/productization collaboration. We'll review and respond based on your requirements and current stage.</p>
+        </section>
+
+        <!-- Content grid -->
+        <div class="contact-grid">
+
+          <!-- Left: Info panel -->
+          <aside class="info-panel">
+            <div class="info-block">
+              <p class="info-label">Direct Contact</p>
+              <a href="mailto:infinique@infinique.co.kr" class="info-email">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+                infinique@infinique.co.kr
+              </a>
+              <p class="info-value" style="font-size:14px; color:var(--muted);">We'll review your inquiry and reply within 1–2 business days.</p>
+            </div>
+
+            <div class="info-divider"></div>
+
+            <div class="info-block">
+              <p class="info-label">Work Process</p>
+              <div class="info-process">
+                <div class="process-step">
+                  <div class="step-num">1</div>
+                  <div class="step-text">
+                    <span class="step-title">Inquiry Received</span>
+                    <span class="step-desc">We review the project domain and current stage after submission.</span>
+                  </div>
+                </div>
+                <div class="process-step">
+                  <div class="step-num">2</div>
+                  <div class="step-text">
+                    <span class="step-title">Requirements Review</span>
+                    <span class="step-desc">We align on target features, device/data environment, timeline, and available assets.</span>
+                  </div>
+                </div>
+                <div class="process-step">
+                  <div class="step-num">3</div>
+                  <div class="step-text">
+                    <span class="step-title">Scope & Timeline Proposal</span>
+                    <span class="step-desc">We propose the scope and timeline aligned with the PoC, MVP, or productization stage.</span>
+                  </div>
+                </div>
+                <div class="process-step">
+                  <div class="step-num">4</div>
+                  <div class="step-text">
+                    <span class="step-title">Architecture & Execution Plan</span>
+                    <span class="step-desc">We design hardware, firmware, backend, AI model, and client components as a single coherent flow.</span>
+                  </div>
+                </div>
+                <div class="process-step">
+                  <div class="step-num">5</div>
+                  <div class="step-text">
+                    <span class="step-title">Development & Verification</span>
+                    <span class="step-desc">We execute prototyping, testing, deployment, and operations handover step by step.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Right: Form panel -->
+          <div class="form-panel">
+            <form
+              id="contactForm"
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              novalidate
+            >
+              <!-- Netlify: 폼 Name 식별자 (AJAX 제출 required) -->
+              <input type="hidden" name="form-name" value="contact">
+              <!-- Netlify Email 제목: 회사명/Name/문의유형 문의입니다. -->
+              <input type="hidden" name="subject" id="emailSubject" value="문의가 접수되었습니다.">
+              <!-- Netlify 내장 honeypot -->
+              <input name="bot-field" style="display:none" tabindex="-1" autocomplete="off">
+
+              <!-- Row 1: Name + Company -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="name">
+                    Name <span class="req">*</span>
+                  </label>
+                  <input
+                    class="form-field"
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Your name"
+                    required
+                    autocomplete="name"
+                  >
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="company">
+                    Company / Organization <span class="req">*</span>
+                  </label>
+                  <input
+                    class="form-field"
+                    type="text"
+                    id="company"
+                    name="company"
+                    placeholder="Company or project name"
+                    required
+                    autocomplete="organization"
+                  >
+                </div>
+              </div>
+
+              <!-- Row 2: Email + Phone -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="email">
+                    Email <span class="req">*</span>
+                  </label>
+                  <input
+                    class="form-field"
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="example@company.com"
+                    required
+                    autocomplete="email"
+                  >
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="phone">
+                    Phone
+                  </label>
+                  <input
+                    class="form-field"
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="+82 10-0000-0000"
+                    autocomplete="tel"
+                  >
+                </div>
+              </div>
+
+              <!-- Row 3: Type + Deadline -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="type">
+                    Inquiry Type <span class="req">*</span>
+                  </label>
+                  <select class="form-field" id="type" name="inquiry_type" required>
+                    <option value="" disabled selected>Select a project domain</option>
+                    <option value="Robotics &amp; Hardware">Robotics &amp; Hardware</option>
+                    <option value="Firmware &amp; Embedded">Firmware &amp; Embedded</option>
+                    <option value="AI &amp; Machine Learning">AI &amp; Machine Learning</option>
+                    <option value="LLM/RAG">LLM/RAG</option>
+                    <option value="Backend/Cloud">Backend/Cloud</option>
+                    <option value="Web/Mobile Client">Web/Mobile Client</option>
+                    <option value="Other 기술 협업">Other 기술 협업</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="deadline">
+                    Desired Start Date
+                  </label>
+                  <input
+                    class="form-field"
+                    type="date"
+                    id="deadline"
+                    name="deadline"
+                    style="color-scheme: dark;"
+                  >
+                </div>
+              </div>
+
+              <!-- Row 4: Volume + Budget -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="volume">
+                    Project Stage
+                  </label>
+                  <select class="form-field" id="volume" name="volume">
+                    <option value="" disabled selected>Select a stage</option>
+                    <option value="아이디어/기획">아이디어/기획</option>
+                    <option value="PoC 검증">PoC 검증</option>
+                    <option value="MVP 개발">MVP 개발</option>
+                    <option value="제품화/양산 전 개발">제품화/양산 전 개발</option>
+                    <option value="운영/고도화">운영/고도화</option>
+                    <option value="TBD">TBD</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="budget">
+                    Budget Range
+                  </label>
+                  <select class="form-field" id="budget" name="budget">
+                    <option value="" disabled selected>Select a budget range</option>
+                    <option value="500만원 미만">500만원 미만</option>
+                    <option value="500~1,000만원">500~1,000만원</option>
+                    <option value="1,000~3,000만원">1,000~3,000만원</option>
+                    <option value="3,000만원 이상">3,000만원 이상</option>
+                    <option value="협의">협의</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Message -->
+              <div class="form-group">
+                <label class="form-label" for="message">
+                  Message <span class="req">*</span>
+                </label>
+                <textarea
+                  class="form-field"
+                  id="message"
+                  name="message"
+                  placeholder="Tell us about the product/service you want to build — required features, available assets or data, hardware environment, target timeline, etc."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-divider"></div>
+
+              <!-- Privacy consent -->
+              <label class="privacy-wrap">
+                <input type="checkbox" id="privacy" name="privacy_agreed" value="yes" required>
+                <span class="privacy-text">
+                  기술 개발 문의 처리를 위한 개인정보(Name, Email, Phone) 수집 및 이용에 동의합니다.
+                  수집된 정보는 project consultation 및 회신 목적으로만 사용되며, 처리 완료 후 1년 이내 파기됩니다.
+                </span>
+              </label>
+
+              <!-- Cloudflare Turnstile -->
+              <!--
+                ─────────────────────────────────────────────────────
+                Turnstile 설정 방법:
+                1. dash.cloudflare.com → Turnstile → Add Site
+                2. 사이트명·도메인 입력 후 Site Key 복사
+                3. 아래 data-sitekey="YOUR_SITE_KEY" 교체
+                   (Secret Key는 Formspree/Web3Forms 대시보드에 입력)
+                ─────────────────────────────────────────────────────
+              -->
+              <div class="turnstile-wrap">
+                <div
+                  class="cf-turnstile"
+                  data-sitekey="0x4AAAAAAC-1OboStogYQJjC"
+                  data-theme="dark"
+                  data-language="ko"
+                ></div>
+                <p class="turnstile-error" id="turnstileError">보안 확인을 완료해 주세요.</p>
+              </div>
+
+              <!-- Submit -->
+              <div class="form-submit">
+                <button class="btn-submit" type="submit" id="submitBtn">
+                  Send inquiry
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                  </svg>
+                </button>
+                <p class="submit-note">Within 1–2 business days<br>기술 검토 후 회신 드립니다.</p>
+              </div>
+
+              <!-- Status messages -->
+              <div class="form-status success" id="statusSuccess" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>
+                </svg>
+                문의가 성공적으로 전송되었습니다. Within 1–2 business days 기술 검토 후 회신 드리겠습니다.
+              </div>
+              <div class="form-status error" id="statusError" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>
+                </svg>
+                전송 중 오류가 발생했습니다. 잠시 후 다시 시도하거나 Email로 직접 문의해 주세요.
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+      <div id="footer-placeholder"></div>
+<script src="../assets/footer.js"></script>
+  </div>
+
+  <script>
+  (function(){
+    var navBar = document.querySelector('.nav-bar');
+    var nav = navBar ? navBar.querySelector('nav') : null;
+    var btn = document.getElementById('langToggle');
+    var dd = document.getElementById('langDropdown');
+    var langWrap = btn ? btn.parentElement : null;
+    var navToggle;
+    var mobileQuery = window.matchMedia('(max-width: 768px)');
+
+    function closeMenu() {
+      if (!navBar || !navToggle) return;
+      navBar.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+    function closeLang() {
+      if (!dd) return;
+      dd.style.display = 'none';
+      if (langWrap) langWrap.classList.remove('lang-open');
+    }
+    function syncNavMode() {
+      if (!mobileQuery.matches) { closeMenu(); closeLang(); }
+    }
+
+    if (navBar && nav) {
+      navToggle = document.createElement('button');
+      navToggle.type = 'button';
+      navToggle.className = 'nav-toggle';
+      navToggle.setAttribute('aria-label', 'Toggle menu');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-controls', 'siteNav');
+      navToggle.innerHTML = '<span></span><span></span><span></span>';
+      navBar.appendChild(navToggle);
+      navToggle.addEventListener('click', function(e){
+        e.stopPropagation();
+        var open = navBar.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (!open) closeLang();
+      });
+    }
+    if (btn && dd) {
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        if (mobileQuery.matches && langWrap) {
+          var isOpen = langWrap.classList.toggle('lang-open');
+          dd.style.display = isOpen ? 'block' : 'none';
+          return;
+        }
+        dd.style.display = dd.style.display === 'block' ? 'none' : 'block';
+      });
+    }
+    document.addEventListener('click', function(e){
+      closeLang();
+      if (navBar && navBar.classList.contains('nav-open') && navToggle && !navBar.contains(e.target)) closeMenu();
+    });
+    if (mobileQuery.addEventListener) { mobileQuery.addEventListener('change', syncNavMode); }
+    else if (mobileQuery.addListener) { mobileQuery.addListener(syncNavMode); }
+    window.addEventListener('resize', syncNavMode);
+    syncNavMode();
+  })();
+  function setLang(lang){
+  if (lang === 'ko') { window.location.href = '../index.html'; return; }
+  var dropdown = document.getElementById('langDropdown');
+  var label = document.getElementById('langLabel');
+  if (dropdown) {
+    dropdown.style.display = 'none';
+    if (dropdown.parentElement) { dropdown.parentElement.classList.remove('lang-open'); }
+  }
+  if (label) { label.textContent = lang.toUpperCase(); }
+}
+  </script>
+
+  <script>
+  (function () {
+    var form = document.getElementById('contactForm');
+    var submitBtn = document.getElementById('submitBtn');
+    var statusSuccess = document.getElementById('statusSuccess');
+    var statusError = document.getElementById('statusError');
+    var turnstileError = document.getElementById('turnstileError');
+
+    if (!form) return;
+
+    function clearStatus() {
+      statusSuccess.style.display = 'none';
+      statusError.style.display = 'none';
+      if (turnstileError) turnstileError.style.display = 'none';
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      clearStatus();
+
+      // 1. required 필드 검증
+      var required = form.querySelectorAll('[required]');
+      var valid = true;
+      required.forEach(function (field) {
+        if (!field.value.trim() || (field.type === 'checkbox' && !field.checked)) {
+          field.focus();
+          valid = false;
+        }
+      });
+      if (!valid) return;
+
+      // 2. Turnstile 토큰 검증
+      var tokenField = form.querySelector('[name="cf-turnstile-response"]');
+      var token = tokenField ? tokenField.value : '';
+      if (!token) {
+        if (turnstileError) turnstileError.style.display = 'block';
+        if (turnstileError) turnstileError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+
+      // Email 제목 동적 조합: 회사명/Name/문의유형 문의입니다.
+      var company = (form.querySelector('[name="company"]').value || '').trim();
+      var name    = (form.querySelector('[name="name"]').value   || '').trim();
+      var type    = (form.querySelector('[name="inquiry_type"]').value || '').trim();
+      var subject = company + ' / ' + name + ' / ' + type + ' 기술 개발 문의입니다.';
+      document.getElementById('emailSubject').value = subject;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      // Netlify Forms는 application/x-www-form-urlencoded 필요
+      var data = new URLSearchParams(new FormData(form)).toString();
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data
+      })
+        .then(function (res) {
+          if (res.ok) {
+            statusSuccess.style.display = 'flex';
+            form.reset();
+            if (window.turnstile) window.turnstile.reset();
+            statusSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          } else {
+            throw new Error('Server error ' + res.status);
+          }
+        })
+        .catch(function () {
+          statusError.style.display = 'flex';
+          statusError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          if (window.turnstile) window.turnstile.reset();
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send inquiry <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+        });
+    });
+  })();
+  </script>
+</body>
+</html>
