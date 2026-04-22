@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://infinique.co.kr/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://infinique.co.kr/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://infinique.co.kr/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/hardware.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/hardware.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/hardware.html"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/hardware.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/hardware.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/hardware.html"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/software.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/software.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/software.html"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/software.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/software.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/software.html"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/about.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/about.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/contact.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/contact.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/projects/tendon-driven-dexterous-hand.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/tendon-driven-dexterous-hand.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/tendon-driven-dexterous-hand.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/projects/tendon-driven-dexterous-hand.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/tendon-driven-dexterous-hand.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/tendon-driven-dexterous-hand.html"/>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/projects/egomotion-humanoid.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/egomotion-humanoid.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/egomotion-humanoid.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/projects/egomotion-humanoid.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/egomotion-humanoid.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/egomotion-humanoid.html"/>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/projects/gaplock-simlab.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/gaplock-simlab.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/gaplock-simlab.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/projects/gaplock-simlab.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/gaplock-simlab.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/gaplock-simlab.html"/>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/projects/innokitchen.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/innokitchen.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/innokitchen.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/projects/innokitchen.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/innokitchen.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/innokitchen.html"/>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/projects/astropet.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/astropet.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/astropet.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/projects/astropet.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/astropet.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/astropet.html"/>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/projects/plantsphere.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/plantsphere.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/plantsphere.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/projects/plantsphere.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/plantsphere.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/plantsphere.html"/>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/projects/docu-factory.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/docu-factory.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/docu-factory.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/projects/docu-factory.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/docu-factory.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/docu-factory.html"/>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/projects/digital-mirror-therapy.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/digital-mirror-therapy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/digital-mirror-therapy.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/projects/digital-mirror-therapy.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/digital-mirror-therapy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/digital-mirror-therapy.html"/>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://infinique.co.kr/projects/dongin-legal-chatbot.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/dongin-legal-chatbot.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/dongin-legal-chatbot.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://infinique.co.kr/en/projects/dongin-legal-chatbot.html</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://infinique.co.kr/projects/dongin-legal-chatbot.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infinique.co.kr/en/projects/dongin-legal-chatbot.html"/>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
